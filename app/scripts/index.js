@@ -61,11 +61,19 @@ const renderCampaign = () => {
 const renderPromise = (instance, index) => {
     instance.getPromise(index).then((p) => {
         console.log(p)
-        $('#candidate-first-name').append(p[1])
-        $('#candidate-last-name').append(p[2])
-        $('#party-name').append(p[3])
-        $('#election-type').append(p[4])
-        $('#promise').append(p[5])
+
+        let promiseContainer = $('<div>')
+        promiseContainer.addClass('col-sm-3 text-center col-margin-bottom-left-right-3 promise border border-info')
+        promiseContainer.append(`<div class='title'>${p[1]} ${p[2]}</div>`)
+        promiseContainer.append(`<div class='title'>${p[3]}</div>`)
+        promiseContainer.append(`<div class='title'>${p[4]}</div>`)
+
+        ipfs.cat(p[5]).then((file) => {
+            let promiseHash = file.toString()
+            promiseContainer.append(`<div>${promiseHash}</div>`)
+        })
+
+        $('#promise-component').append(promiseContainer)
     })
 }
 
@@ -85,8 +93,6 @@ const savePromise = (promise) => {
         }).then((p) => {
             console.log("Saved your promise!")
             console.log(p)
-            // window.location.href = "/"
-            // location.reload()
         })
     })
 }
