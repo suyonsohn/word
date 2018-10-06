@@ -5,6 +5,11 @@ import '../styles/app.css'
 import { default as Web3 } from 'web3'
 import { default as contract } from 'truffle-contract'
 
+const serialize = require('form-serialize')
+
+const ipfsAPI = require('ipfs-api')
+const ipfs = ipfsAPI({ host: 'localhost', port: '5001', protocol: 'http' })
+
 // Import our contract artifacts and turn them into usable abstractions.
 const campaignArtifacts = require('../../build/contracts/Campaign.json')
 
@@ -21,6 +26,19 @@ const App = {
         console.log('working')
 
         renderCampaign()
+
+        $('#show-post-promise-modal').click(function (e) {
+            $('#post-promise').modal('show')
+            e.preventDefault()
+        })
+
+        $('#add-promise-to-campaign').submit((e) => {
+            const form = document.querySelector('#add-promise-to-campaign')
+            const obj = serialize(form, { hash: true })
+            console.log(obj)
+            savePromise(obj)
+            e.preventDefault()
+        })
     }
 }
 
@@ -48,6 +66,43 @@ const renderPromise = (instance, index) => {
         $('#party-name').append(p[3])
         $('#election-type').append(p[4])
         $('#promise').append(p[5])
+    })
+}
+
+const savePromise = (promise) => {
+    addPromiseTextToIpfs(promise["promise"]).then((textHash) => {
+        Campaign.deployed().then((f) => {
+            return f.addPromiseToCampaign(
+                promise["candidate-first-name"],
+                promise["candidate-last-name"],
+                promise["party-name"],
+                promise["election-type"],
+                textHash,
+                {
+                    from: web3.eth.accounts[0], gas: 4700000
+                }
+            )
+        }).then((p) => {
+            console.log("Saved your promise!")
+            console.log(p)
+            // window.location.href = "/"
+            // location.reload()
+        })
+    })
+}
+
+const addPromiseTextToIpfs = (promiseText) => {
+    return new Promise((resolve, reject) => {
+        const textBuffer = Buffer.from(promiseText, 'utf-8')
+        ipfs.add(textBuffer)
+            .then((response) => {
+                console.log(response)
+                resolve(response[0].hash)
+            })
+            .catch((err) => {
+                console.log(err)
+                reject.err
+            })
     })
 }
 

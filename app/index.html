@@ -22,8 +22,7 @@
             <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark justify-content-between">
                 <a class="navbar-brand" href="#">WORD</a>
                 <form class="form-inline">
-                    <!-- TODO: Add modal here -->
-                    <button type="button" class="btn btn-info">Post your election promise!</button>
+                    <button type="button" class="btn btn-info" id="show-post-promise-modal">Post your campaign promise!</button>
                 </form>
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -38,6 +37,68 @@
                 <h2 class="row text-center" id="party-name"></h2>
                 <h2 class="row text-center" id="election-type"></h2>
                 <h2 class="row text-center" id="promise"></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="post-promise">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Post your promise</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <form id="add-promise-to-campaign">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="candidate-first-name" class="control-label">First Name</label>
+                                        <div>
+                                            <input type="text" name="candidate-first-name" class="form-control form-control-lg" id="form-candidate-first-name" placeholder="Jack"
+                                                required="required"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="candidate-last-name" class="control-label">Last Name</label>
+                                    <div>
+                                        <input type="text" name="candidate-last-name" class="form-control" id="form-candidate-last-name" placeholder="Kim" required="required"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="party-name" class="control-label">Party Name</label>
+                                    <div>
+                                        <input type="text" name="party-name" class="form-control" id="form-party-name" placeholder="Vision" required="required"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="election-type" class="control-label">Election Type</label>
+                                    <div>
+                                        <input type="text" name="election-type" class="form-control" id="form-election-type" placeholder="2018 Vancouver Municipal"
+                                            required="required"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="promise" class="control-label">Promise</label>
+                                    <div>
+                                        <textarea type="text" name="promise" class="form-control" id="form-promise" placeholder="Renew outstanding co-op rental leases"
+                                            rows="3 " required="required"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-info">Submit your word!</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
