@@ -17,6 +17,15 @@ contract Campaign {
         string electionType;
         string promiseDescHash;
     }
+
+    event NewPromise(
+        uint _id,
+        string _candidateFirstName,
+        string _candidateLastName,
+        string _party,
+        string _electionType,
+        string _promiseDescHash
+    );
     
     constructor() public {
         promiseIndex = 0;
@@ -40,6 +49,7 @@ contract Campaign {
         );
         campaigns[msg.sender][promiseIndex] = promise;
         promiseIdInCampaign[promiseIndex] = msg.sender;    
+        emit NewPromise(promiseIndex, _candidateFirstName, _candidateLastName, _party, _electionType, _promiseDescHash);
     }
     
     function getPromise(uint _promiseId) public view returns (uint, string, string, string, string, string) {
