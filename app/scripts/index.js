@@ -64,13 +64,12 @@ const renderPromise = (instance, index) => {
 
         let promiseContainer = $('<div>')
         promiseContainer.addClass('col-sm-3 text-center col-margin-bottom-left-right-3 promise border border-info')
-        promiseContainer.append(`<div class='title'>${p[1]} ${p[2]}</div>`)
-        promiseContainer.append(`<div class='title'>${p[3]}</div>`)
-        promiseContainer.append(`<div class='title'>${p[4]}</div>`)
+        promiseContainer.append(`<div class='title'>${p[1]} ${p[2]} | ${p[3]}</div>`)
+        promiseContainer.append(`<hr><div class='title'>${p[4]}</div>`)
 
         ipfs.cat(p[5]).then((file) => {
             let promiseHash = file.toString()
-            promiseContainer.append(`<div>${promiseHash}</div>`)
+            promiseContainer.append(`<hr><div class='promise-text'>${promiseHash}</div>`)
         })
 
         $('#promise-component').append(promiseContainer)
