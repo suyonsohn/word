@@ -1,3 +1,7 @@
+WORD - Political Promises Hub is a decentralized application for political promises built on Ethereum. 
+
+I intend to keep WORD as an open-source project. Please feel free to create Pull Requests!
+
 # How to run this DApp locally
 In the project directory,
 1. Run `ganache-cli`
